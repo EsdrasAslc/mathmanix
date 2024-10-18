@@ -22,7 +22,7 @@ function startGame() {
     aliens = [];
     lasers = [];
     score = 0;
-    gameTimer = 60;
+    gameTimer = 180;
     isGameOver = false;
     gameOverElement.style.display = 'none';
     answerInput.value = '';
