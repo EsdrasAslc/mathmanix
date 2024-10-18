@@ -1,17 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mathmanix</title>
-    <link rel="stylesheet" href="/assets/css/style.css">
+    <title>Jogo de Nave Matemático</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
-
-    <section id="game">
-        
-    </section>
-    <script src="assets/js/index.js"></script>
+    <h1>Mathmanix</h1>
+    <canvas id="gameCanvas" width="480" height="540"></canvas>
+    <div id="equationArea">
+        <p>Digite a resposta da equação: <span id="equation"></span></p>
+        <input type="text" id="answerInput">
+        <button id="submitAnswer">Atirar</button>
+    </div>
+    <p>Pontuação: <span id="score">0</span></p>
+    <p>Tempo: <span id="timer">60</span> segundos</p>
+    <div id="gameOver">
+        <h2>Game Over!</h2>
+        <p>Sua pontuação foi: <span id="finalScore"></span></p>
+        <h3>Ranking:</h3>
+        <ol id="rankingList"></ol>
+        <button id="restartButton">Recomeçar</button>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>

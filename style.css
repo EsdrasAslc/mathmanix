@@ -1,0 +1,43 @@
+body {
+    text-align: center;
+    font-family: Arial, sans-serif;
+}
+
+canvas {
+    border: 2px solid black;
+    display: block;
+    margin: 0 auto;
+}
+
+#equationArea {
+    margin-top: 20px;
+}
+
+#gameOver {
+    display: none;
+}
+
+h1 {
+    color: #2c3e50;
+}
+
+button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#submitAnswer {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+#restartButton {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
