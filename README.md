@@ -1,0 +1,4 @@
+projeto referente ao trabalho da matéria de estrutura de dados, mestrada pelo professor Jean Trabuco 
+O projeto se baseia em um jogo que tem como objetivo gameficar a matemática transformando-a em algo lúdico e divertido, para melhorar o entendimento das crianças.
+O jogo tem como princípio a nave que fica localizada no centro na parte inferior da tela, os Aliens que são gerados em locais aleatórios e que tem como animação cair sobre a tela em direção a nave, caso isso aconteça, o jogador perderá uma vida. Além disso cada além tem uma equação matemática própria.
+A mecânica do jogo se resume ao jogador escrever a resposta da equação de cada alien no campo designado, caso o jogador acerte a resposta, a nave lançará um lazer que destruirá o alien que possui a equação referente a resposta do jogador. caso o jogador erre, os Aliens que estão na tela descem mais rapidamente aumentando a dificuldade do jogo punindo o jogador por errar a resposta da equaçã
