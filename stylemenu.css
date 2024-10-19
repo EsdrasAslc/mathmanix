@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Press Start 2P', cursive;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: white;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Fundo animado de estrelas */
+.stars {
+    position: absolute; /* Para ocupar todo o fundo */
+    top: 0;
+    left: 0;
+    width: 100%; /* Largura total */
+    height: 100%; /* Altura total */
+    background-image: url('https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExdXN4bjNueWVoMWJ4N2I5MWIwaGE1YmdzZ2hud2R5aDExNGF0ZG9pZyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/TZf4ZyXb0lXXi/giphy.webp'); /* Caminho para o seu GIF */
+    background-repeat: no-repeat; /* Não repete o GIF */
+    background-size: cover; /* Cobre toda a área da tela */
+    background-position: center; /* Centraliza o GIF */
+    z-index: 0; /* Coloca atrás do conteúdo */
+}
+
+/* Container do menu */
+.menu-container {
+    position: relative;
+    z-index: 1; /* Mantém o menu acima do fundo */
+    text-align: center;
+   
+    
+    
+    width: 500px;
+    animation: fadeIn 2s ease-out forwards;
+    opacity: 0;
+}
+
+@keyframes fadeIn {
+    to { opacity: 1; }
+}
+
+/* Estilo do título do jogo */
+h1 {
+    font-size: 60px;
+    margin-bottom: 60px;
+    color: #00ffff; /* Azul claro */
+    text-shadow: 4px 4px 0 #050033, 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #00ffff; /* Azul claro */
+    animation: pulse 3s infinite; /* Aumentei a duração da animação para suavizar */
+}
+
+
+
+/* Botão de jogar */
+button {
+    font-size: 24px;
+    padding: 20px 40px;
+    background: linear-gradient(145deg, #000, #003300);
+    border: 3px solid #00ffff; /* Azul claro */
+    color: #00ffff; /* Azul claro */
+    cursor: pointer;
+    border-radius: 20px;
+    letter-spacing: 2px;
+    box-shadow: 0px 0px 20px #00ffff, 0px 0px 10px #2600ff inset; /* Azul claro */
+    transition: transform 0.3s, box-shadow 0.3s; /* Aumentei o tempo de transição para suavizar */
+}
+
+button:hover {
+    box-shadow: 0px 0px 40px #00ffff, 0px 0px 20px #0004ff inset; /* Azul claro */
+    transform: scale(1.05); /* Reduzi a escala para suavizar */
+}
+
+/* Estilo do Canvas (Jogo) */
+#gameCanvas {
+    display: none; /* Canvas só aparece ao iniciar o jogo */
+    border: 2px solid white;
+    background-color: black;
+    width: 800px;
+    height: 600px;
+}

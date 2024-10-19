@@ -10,7 +10,11 @@ const finalScoreElement = document.getElementById('finalScore');
 const rankingList = document.getElementById('rankingList');
 const restartButton = document.getElementById('restartButton');
 
-let nave = { x: canvas.width / 2, y: canvas.height - 40, width: 50, height: 30 };
+let nave = {  x: (canvas.width / 2) - 25, // Centraliza a nave horizontalmente
+    y: canvas.height - 35, // Posição inicial no eixo Y
+    width: 50, // Largura do sprite
+    height: 30, // Altura do sprite};
+}
 let aliens = [];
 let lasers = [];
 let score = 0;
