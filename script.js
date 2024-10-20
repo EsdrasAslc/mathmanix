@@ -9,12 +9,18 @@ const gameOverElement = document.getElementById('gameOver');
 const finalScoreElement = document.getElementById('finalScore');
 const rankingList = document.getElementById('rankingList');
 const restartButton = document.getElementById('restartButton');
+let naveImage = new Image();
+naveImage.src = 'spritenave.png'; // Caminho para a imagem do sprite da nave
 
-let nave = {  x: (canvas.width / 2) - 25, // Centraliza a nave horizontalmente
-    y: canvas.height - 35, // Posição inicial no eixo Y
-    width: 50, // Largura do sprite
-    height: 30, // Altura do sprite};
-}
+let alienImage = new Image();
+alienImage.src = 'alien.png';
+
+let nave = {
+    x: (canvas.width / 2) - 80, // Centraliza a nave horizontalmente
+    y: canvas.height - 90, // Posição inicial no eixo Y
+    width: 140, // Largura do sprite
+    height: 120, // Altura do sprite
+};
 let aliens = [];
 let lasers = [];
 let score = 0;
@@ -45,11 +51,12 @@ function generateAliens() {
         aliens.push({
             x: Math.random() * (canvas.width - 50),
             y: 0,
-            width: 40,
-            height: 30,
+            width: 80, // Largura do sprite
+            height: 60, // Altura do sprite
             equation: equation,
             result: result,
-            speed: 0.1 + Math.random() * 1
+            speed: 0.1 + Math.random() * 1,
+            image: alienImage // Adiciona a imagem do alien
         });
     }
 }
@@ -63,31 +70,65 @@ function generatenewAliens() {
         aliens.push({
             x: Math.random() * (canvas.width - 50),
             y: 0,
-            width: 40,
-            height: 30,
+            width: 80, // Largura do sprite
+            height: 60, // Altura do sprite
             equation: equation,
             result: result,
-            speed: 0.2 + Math.random() * 1
+            speed: 0.1 + Math.random() * 1,
+            image: alienImage // Adiciona a imagem do alien
         });
     }
 }
 
 
 function drawAliens() {
+    // Limpa o canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Desenhar nave
-    ctx.fillStyle = '#00f';
-    ctx.fillRect(nave.x, nave.y, nave.width, nave.height);
+    // Desenhar a nave usando o sprite
+    ctx.drawImage(naveImage, nave.x, nave.y, nave.width, nave.height);
 
-    // Desenhar aliens
+    // Desenhar os aliens usando o sprite
     aliens.forEach(alien => {
-        ctx.fillStyle = '#f00';
-        ctx.fillRect(alien.x, alien.y, alien.width, alien.height);
-        ctx.fillStyle = '#fff';
-        ctx.fillText(alien.equation, alien.x + 5, alien.y + 20);
+        ctx.drawImage(alien.image, alien.x, alien.y, alien.width, alien.height);
+        
+        // Configurações de estilo do texto
+        ctx.fillStyle = '#000'; // Cor do texto
+        ctx.font = 'bold 14px Arial'; // Tamanho e espessura da fonte
+
+        // Calcular a largura e altura do texto
+        const textWidth = ctx.measureText(alien.equation).width;
+        const textHeight = 10; // Altura do texto original
+
+        // Definir padding e comprimento extra (ajuste os valores)
+        const padding = 5; // Largura extra em torno do texto
+        const extraLength = 5; // Comprimento extra para o fundo
+        const rectWidth = textWidth + padding + extraLength; // Largura total do retângulo
+        const rectHeight = textHeight + 10; // Aumenta a altura do fundo
+
+        // Posição do retângulo
+        const rectX = alien.x + (alien.width - rectWidth) / 2; // Centralizar horizontalmente
+        const rectY = alien.y + alien.height - rectHeight - 5; // Posicionar acima da parte inferior do alien
+
+        // Desenhar fundo branco do tamanho da equação
+        ctx.fillStyle = '#fff'; // Cor do fundo
+        ctx.fillRect(rectX, rectY, rectWidth, rectHeight); // Usar rectWidth e rectHeight
+
+        // Desenhar borda
+        ctx.strokeStyle = '#000'; // Cor da borda (preto)
+        ctx.lineWidth = 2; // Espessura da borda
+        ctx.strokeRect(rectX, rectY, rectWidth, rectHeight); // Usar rectWidth e rectHeight
+
+        // Desenhar a equação
+        ctx.fillStyle = '#000'; // Cor do texto (preto)
+        ctx.fillText(alien.equation, rectX + padding / 2, rectY + textHeight + 5); // Posição do texto com um pouco de padding
     });
 }
+
+
+
+
+
 
 function drawLasers() {
     // Desenhar lasers
@@ -104,7 +145,7 @@ function updateLasers() {
         const dx = targetAlien.x + targetAlien.width / 2 - laser.x;
         const dy = targetAlien.y + targetAlien.height / 2 - laser.y;
         const distance = Math.sqrt(dx * dx + dy * dy);
-        const speed = 40; // Aumentar a velocidade do laser
+        const speed = 100; // Aumentar a velocidade do laser
 
         // Movimento do laser em direção ao alien
         laser.x += (dx / distance) * speed;
