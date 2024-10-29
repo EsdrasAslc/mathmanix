@@ -10,7 +10,7 @@ const finalScoreElement = document.getElementById('finalScore');
 const rankingList = document.getElementById('rankingList');
 const restartButton = document.getElementById('restartButton');
 let naveImage = new Image();
-naveImage.src = 'spritenave.png'; // Caminho para a imagem do sprite da nave
+naveImage.src = 'spritenave(1).png'; // Caminho para a imagem do sprite da nave
 
 let alienImage = new Image();
 alienImage.src = 'alien.png';
