@@ -1,29 +1,69 @@
+/* Estilos gerais */
 body {
     text-align: center;
     font-family: Arial, sans-serif;
 }
 
+/* Estilos do canvas */
 canvas {
-    border: 2px solid black;
+    border: 2px solid #3498db;
     display: block;
     margin: 0 auto;
-    background: url('https://i.gifer.com/Ozp.gif') no-repeat center center;
-    background-size: cover; /* Faz o GIF cobrir toda a área do canvas */
-    
+    background: url('https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExNW45cXZ2c2wzNjVjamJuNTFxZWU1ZWx6OXgwcGRsMDhhd3J6eDQ4YSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/UYBDCJjwOd9Re/giphy.webp') no-repeat center center;
+    background-size: cover;
 }
 
+/* Estilos de informações do jogo */
+.info {
+    display: flex;
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
+    gap: 30px; /* Ajuste o espaço entre os itens, se necessário */
+    margin-top: 20px; /* Espaço acima das informações */
+}
+
+/* Estilo para o contêiner de vidas */
+#livesContainer {
+    display: flex;
+    gap: 5px;
+}
+
+/* Estilo para vidas */
+#livesContainer div {
+    width: 20px;
+    height: 20px;
+    background-color: black;
+    border: 2px solid #3498db;
+    border-radius: 50%;
+}
+
+/* Área da equação */
 #equationArea {
     margin-top: 20px;
 }
 
+/* Estilos do jogo */
 #gameOver {
-    display: none;
+    display: none; /* Oculta o elemento inicialmente */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(44, 62, 80, 0.9);
+    padding: 20px;
+    border-radius: 10px;
+    color: #ecf0f1;
+    text-align: center;
+    width: 300px;
 }
 
-h1 {
-    color: #2c3e50;
+/* Estilos do título de game over */
+#gameOver h1 {
+    margin-bottom: 10px;
+    color: #e74c3c;
 }
 
+/* Botões */
 button {
     margin-top: 10px;
     padding: 10px 20px;
@@ -43,4 +83,23 @@ button {
     color: white;
     border: none;
     border-radius: 5px;
+}
+
+/* Estilos para o ranking */
+#rankingList {
+    list-style: none;
+    padding: 0;
+    color: #3498db;
+}
+
+/* Estilo para a pontuação final */
+#finalScore {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* Estilo para o tempo */
+#timeDisplay {
+    font-size: 24px; /* Tamanho da fonte para o tempo */
+    color: #3498db; /* Cor do texto do tempo */
 }

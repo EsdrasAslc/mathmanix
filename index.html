@@ -3,27 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jogo de Nave Matemático</title>
+    <title>Jogo de Nave Matemático - Mathmanix</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <h1>Mathmanix</h1>
-    <canvas id="gameCanvas" width="480" height="540"></canvas>
-    <div id="equationArea">
-        <p>Digite a resposta da equação: <span id="equation"></span></p>
-        <input type="text" id="answerInput">
-        <button id="submitAnswer">Atirar</button>
+
+    <!-- Container principal do jogo -->
+    <div class="container">
+        <!-- HUD de informações -->
+        <div class="hud">
+            <div class="info">
+                <div id="livesContainer">
+                    <div class="life"></div>
+                    <div class="life"></div>
+                    <div class="life"></div>
+                </div>
+                <p>Pontuação: <span id="score">0</span></p>
+                <p>Tempo: <span id="timer">60</span> segundos</p>
+            </div>
+        </div>
+
+        <!-- Área do Canvas para o jogo -->
+        <canvas id="gameCanvas" width="480" height="540"></canvas>
+
+        <!-- Área para exibir a equação e resposta -->
+        <div id="equationArea" class="equation-box">
+            <p>Equação: <span id="equation"></span></p>
+            <input type="number" id="answerInput" placeholder="Resposta">
+            <button id="submitAnswer">Atirar</button>
+        </div>
+
+        <!-- Tela de Game Over -->
+        <div id="gameOver">
+            <h2>Game Over!</h2>
+            <p>Sua pontuação foi: <span id="finalScore"></span></p>
+            <h3>Ranking:</h3>
+            <ol id="rankingList"></ol>
+            <button id="restartButton">Recomeçar</button>
+        </div>
     </div>
-    
-    <p>Pontuação: <span id="score">0</span></p>
-    <p>Tempo: <span id="timer">60</span> segundos</p>
-    <div id="gameOver">
-        <h2>Game Over!</h2>
-        <p>Sua pontuação foi: <span id="finalScore"></span></p>
-        <h3>Ranking:</h3>
-        <ol id="rankingList"></ol>
-        <button id="restartButton">Recomeçar</button>
-    </div>
+
     <script src="script.js"></script>
 </body>
 </html>

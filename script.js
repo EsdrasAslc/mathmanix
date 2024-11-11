@@ -9,11 +9,22 @@ const gameOverElement = document.getElementById('gameOver');
 const finalScoreElement = document.getElementById('finalScore');
 const rankingList = document.getElementById('rankingList');
 const restartButton = document.getElementById('restartButton');
+const livesElement = document.getElementById('lives');
 let naveImage = new Image();
 naveImage.src = 'spritenave(1).png'; // Caminho para a imagem do sprite da nave
 
 let alienImage = new Image();
 alienImage.src = 'alien.png';
+
+let bossimage = new Image();
+bossimage.src = 'alienBoss.png'
+
+let alienstage2 = new Image();
+alienstage2.src = 'alienstage2.png'
+
+let alienstage3 = new Image();
+alienstage3.src = 'alienstage3'
+
 
 let nave = {
     x: (canvas.width / 2) - 80, // Centraliza a nave horizontalmente
@@ -22,18 +33,24 @@ let nave = {
     height: 120, // Altura do sprite
 };
 let aliens = [];
+let boss = []
 let lasers = [];
 let score = 0;
 let gameTimer = 60;
 let isGameOver = false;
 let rankings = [];
+let lives = 3; // Total de vidas do jogador
+let currentStage = 1;
+let isBossActive = false;
 
 function startGame() {
     aliens = [];
     lasers = [];
     score = 0;
+    lives = 3;
     gameTimer = 180;
     isGameOver = false;
+    isBossActive = false;
     gameOverElement.style.display = 'none';
     answerInput.value = '';
     generateAliens();
@@ -60,8 +77,27 @@ function generateAliens() {
         });
     }
 }
-function generatenewAliens() {
-    for (let i = 0; i < 2; i++) {
+function generateAliensstage2() {
+    for (let i = 0; i < 3; i++) {
+        const a = Math.floor(Math.random() * 10);
+        const b = Math.floor(Math.random() * 10);
+        const equation = `${a} + ${b}`;
+        const result = a + b;
+
+        aliens.push({
+            x: Math.random() * (canvas.width - 50),
+            y: 0,
+            width: 80, // Largura do sprite
+            height: 60, // Altura do sprite
+            equation: equation,
+            result: result,
+            speed: 0.5 + Math.random() * 1,
+            image: alienstage2 // Adiciona a imagem do alien
+        });
+    }
+}
+function generateAliensstage3() {
+    for (let i = 0; i < 3; i++) {
         const a = Math.floor(Math.random() * 10);
         const b = Math.floor(Math.random() * 10);
         const equation = `${a} + ${b}`;
@@ -75,12 +111,25 @@ function generatenewAliens() {
             equation: equation,
             result: result,
             speed: 0.1 + Math.random() * 1,
-            image: alienImage // Adiciona a imagem do alien
+            image:alienstage3 // Adiciona a imagem do alien
         });
     }
 }
-
-
+function spawnBoss() {
+    aliens = []; // Limpa outros aliens
+    isBossActive = true;
+    aliens.push({
+        x: canvas.width / 2 - 80,
+        y: 0,
+        width: 360,
+        height: 320,
+        equation: '80-25x2+5', // Equação mais difícil
+        result: 35,
+        speed: 0.2,
+        image: bossimage,
+        isBoss: true,
+    });
+}
 function drawAliens() {
     // Limpa o canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -124,12 +173,6 @@ function drawAliens() {
         ctx.fillText(alien.equation, rectX + padding / 2, rectY + textHeight + 5); // Posição do texto com um pouco de padding
     });
 }
-
-
-
-
-
-
 function drawLasers() {
     // Desenhar lasers
     lasers.forEach(laser => {
@@ -140,7 +183,6 @@ function drawLasers() {
 
 function updateLasers() {
     lasers.forEach((laser, laserIndex) => {
-        // Calcular a direção do laser em relação ao alien
         const targetAlien = laser.target;
         const dx = targetAlien.x + targetAlien.width / 2 - laser.x;
         const dy = targetAlien.y + targetAlien.height / 2 - laser.y;
@@ -163,7 +205,15 @@ function updateLasers() {
             lasers.splice(laserIndex, 1);
             score += 10;
             scoreElement.textContent = score;
-            generatenewAliens(); // Gerar novo alien
+
+            // Gerar novo alien dependendo do estágio
+            if (currentStage === 1) {
+                generateAliens();  // Gera aliens da fase 1
+            } else if (currentStage === 2) {
+                generateAliensstage2();  // Gera aliens da fase 2
+            } else if (currentStage === 3) {
+                generateAliensstage3();  // Gera aliens da fase 3
+            }
         }
 
         // Remover laser se ele sair da tela
@@ -173,6 +223,118 @@ function updateLasers() {
     });
 }
 
+function updateLasersstage2() {
+    lasers.forEach((laser, laserIndex) => {
+        const targetAlien = laser.target;
+        const dx = targetAlien.x + targetAlien.width / 2 - laser.x;
+        const dy = targetAlien.y + targetAlien.height / 2 - laser.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        const speed = 100;
+
+        laser.x += (dx / distance) * speed;
+        laser.y += (dy / distance) * speed;
+
+        // Verificar colisão de retângulo entre laser e alien
+        if (
+            laser.x < targetAlien.x + targetAlien.width &&
+            laser.x + laser.width > targetAlien.x &&
+            laser.y < targetAlien.y + targetAlien.height &&
+            laser.y + laser.height > targetAlien.y
+        ) {
+            aliens.splice(aliens.indexOf(targetAlien), 1);
+            lasers.splice(laserIndex, 1);
+            score += 10;
+            scoreElement.textContent = score;
+
+            // Gerar novo alien da fase 2
+            generateAliensstage2();  // Gera aliens da fase 2
+        }
+
+        if (laser.y < 0) {
+            lasers.splice(laserIndex, 1);
+        }
+    });
+}
+
+function updateLasersstage3() {
+    lasers.forEach((laser, laserIndex) => {
+        const targetAlien = laser.target;
+        const dx = targetAlien.x + targetAlien.width / 2 - laser.x;
+        const dy = targetAlien.y + targetAlien.height / 2 - laser.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        const speed = 100;
+
+        laser.x += (dx / distance) * speed;
+        laser.y += (dy / distance) * speed;
+
+        if (
+            laser.x < targetAlien.x + targetAlien.width &&
+            laser.x + laser.width > targetAlien.x &&
+            laser.y < targetAlien.y + targetAlien.height &&
+            laser.y + laser.height > targetAlien.y
+        ) {
+            aliens.splice(aliens.indexOf(targetAlien), 1);
+            lasers.splice(laserIndex, 1);
+            score += 10;
+            scoreElement.textContent = score;
+
+            // Gerar novo alien da fase 3
+            generateAliensstage3();  // Gera aliens da fase 3
+        }
+
+        if (laser.y < 0) {
+            lasers.splice(laserIndex, 1);
+        }
+    });
+}
+function updateLasersboss() {
+    lasers.forEach((laser, laserIndex) => {
+        // Calcular a direção do laser em relação ao alien
+        const targetboss = laser.target;
+        const dx = targetboss.x + targetboss.width / 2 - laser.x;
+        const dy = targetboss.y + targetboss.height / 2 - laser.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        const speed = 100; // Aumentar a velocidade do laser
+
+        // Movimento do laser em direção ao alien
+        laser.x += (dx / distance) * speed;
+        laser.y += (dy / distance) * speed;
+
+        // Verificar colisão de retângulo entre laser e alien
+        if (
+            laser.x < targetboss.x + targetboss.width &&
+            laser.x + laser.width > targetboss.x &&
+            laser.y < targetboss.y + targetboss.height &&
+            laser.y + laser.height > targetboss.y
+        ) {
+            // Remover alien e laser
+            boss.splice(boss.indexOf(targetboss), 1);
+            lasers.splice(laserIndex, 1);
+            score += 10;
+            scoreElement.textContent = score;
+            generateAliens(); // Gerar novo alien
+        }
+// Remover laser se ele sair da tela
+        if (laser.y < 0) {
+            lasers.splice(laserIndex, 1);
+        }
+    });
+}
+function updateLivesDisplay() {
+    livesElement.innerHTML = ''; // Limpa o display de vidas
+    for (let i = 0; i < 3; i++) {
+        const life = document.createElement('span');
+        life.textContent = '⬤';
+        life.style.color = i < lives ? 'black' : 'white';
+        livesElement.appendChild(life);
+    }
+}
+
+function loseLife() {
+    lives--;
+    updateLivesDisplay();
+    if (lives <= 0) endGame();
+}
 function updateGame() {
     if (isGameOver) return;
 
@@ -189,8 +351,65 @@ function updateGame() {
         }
     });
 
+    if (currentStage === 2) {
+        updatestage2();
+    } else if (currentStage === 3) {
+        updatestage3();
+    } else {
+        checkStage();
+    }
+
     requestAnimationFrame(updateGame);
 }
+
+function updatestage2() {
+    if (currentStage !== 2) return;
+
+    drawAliens();
+    drawLasers();
+    updateLasersstage2();
+
+    
+
+    if (!isBossActive) checkStage();
+    requestAnimationFrame(updatestage2);
+}
+
+function updatestage3() {
+    if (currentStage !== 3) return;
+
+    drawAliens();
+    drawLasers();
+    updateLasersstage3(); // Corrigir a chamada da função aqui
+
+    aliens.forEach(alien => {
+        alien.y += alien.speed;
+
+        // Verificar se o alien chegou ao final da tela (game over)
+        if (alien.y + alien.height >= canvas.height) {
+            endGame();
+        }
+    });
+
+    if (!isBossActive) checkStage();
+    requestAnimationFrame(updatestage3);
+}
+
+// Função de verificação do estágio
+function checkStage() {
+    // Verifica pontuação e estágio atual para evitar múltiplas chamadas
+    if (score >= 50 && currentStage === 2) {
+        currentStage = 3;
+        generateAliensstage3();
+    } else if (score >= 20 && currentStage === 1) {
+        currentStage = 2;
+        generateAliensstage2();
+    } else if (score >= 800 && !isBossActive && currentStage === 3) {
+        spawnBoss();
+    }
+}
+
+
 
 function checkAnswer() {
     const answer = parseInt(answerInput.value);
@@ -244,6 +463,7 @@ function endGame() {
     saveRanking();
     displayRanking();
     gameOverElement.style.display = 'block';
+    // Não reiniciar essas variáveis aqui; deixe isso para `startGame()`
 }
 
 function saveRanking() {
