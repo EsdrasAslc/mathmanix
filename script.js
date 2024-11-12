@@ -23,7 +23,7 @@ let alienstage2 = new Image();
 alienstage2.src = 'alienstage2.png'
 
 let alienstage3 = new Image();
-alienstage3.src = 'alienstage3'
+alienstage3.src = 'alienstage3.jpg'
 
 
 let nave = {
@@ -59,7 +59,7 @@ function startGame() {
 }
 
 function generateAliens() {
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 2; i++) {
         const a = Math.floor(Math.random() * 10);
         const b = Math.floor(Math.random() * 10);
         const equation = `${a} + ${b}`;
@@ -72,17 +72,17 @@ function generateAliens() {
             height: 60, // Altura do sprite
             equation: equation,
             result: result,
-            speed: 0.1 + Math.random() * 1,
+            speed: 0.03 + Math.random() * 1,
             image: alienImage // Adiciona a imagem do alien
         });
     }
 }
 function generateAliensstage2() {
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 2; i++) {
         const a = Math.floor(Math.random() * 10);
         const b = Math.floor(Math.random() * 10);
-        const equation = `${a} + ${b}`;
-        const result = a + b;
+        const equation = `${a} - ${b}`;
+        const result = a - b;
 
         aliens.push({
             x: Math.random() * (canvas.width - 50),
@@ -97,11 +97,17 @@ function generateAliensstage2() {
     }
 }
 function generateAliensstage3() {
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 2; i++) {
         const a = Math.floor(Math.random() * 10);
         const b = Math.floor(Math.random() * 10);
-        const equation = `${a} + ${b}`;
-        const result = a + b;
+        let pot
+        if (b < 5) {
+            pot = 2;
+        } else {
+            pot = 3
+        }
+        const equation = `${a} ^ ${pot}`;
+        const result = a ^ pot;
 
         aliens.push({
             x: Math.random() * (canvas.width - 50),
@@ -243,7 +249,7 @@ function updateLasersstage2() {
         ) {
             aliens.splice(aliens.indexOf(targetAlien), 1);
             lasers.splice(laserIndex, 1);
-            score += 10;
+            score += 20;
             scoreElement.textContent = score;
 
             // Gerar novo alien da fase 2
@@ -382,15 +388,7 @@ function updatestage3() {
     drawLasers();
     updateLasersstage3(); // Corrigir a chamada da função aqui
 
-    aliens.forEach(alien => {
-        alien.y += alien.speed;
-
-        // Verificar se o alien chegou ao final da tela (game over)
-        if (alien.y + alien.height >= canvas.height) {
-            endGame();
-        }
-    });
-
+   
     if (!isBossActive) checkStage();
     requestAnimationFrame(updatestage3);
 }
@@ -398,10 +396,12 @@ function updatestage3() {
 // Função de verificação do estágio
 function checkStage() {
     // Verifica pontuação e estágio atual para evitar múltiplas chamadas
-    if (score >= 50 && currentStage === 2) {
+    if (score >= 500 && currentStage === 2) {
+        aliens = [];
         currentStage = 3;
         generateAliensstage3();
-    } else if (score >= 20 && currentStage === 1) {
+    } else if (score >= 200 && currentStage === 1) {
+        aliens = [];
         currentStage = 2;
         generateAliensstage2();
     } else if (score >= 800 && !isBossActive && currentStage === 3) {
@@ -409,6 +409,36 @@ function checkStage() {
     }
 }
 
+function gerarNewAlien() {
+    const num = Math.random() * 10;
+
+    if (aliens.length > 5) {
+        return 0
+    }
+    console.log("OK")
+    if (score < 200) {
+        generateAliens();
+    } else if (score >= 200 && score < 500) {
+        if (num < 5) {
+            generateAliensstage2();
+        } else {
+            generateAliens();
+        }
+    } else if (score >= 500 && score < 800) {
+        if (num < 5) {
+            if (num < 2.5) {
+                generateAliensstage2();
+            } else {
+                generateAliens();
+            }
+        } else {
+            generateAliensstage3();
+        }
+    } else if (score === 800) {
+        spawnBoss();
+    }
+    
+}
 
 
 function checkAnswer() {
