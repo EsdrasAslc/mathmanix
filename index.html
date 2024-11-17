@@ -9,18 +9,16 @@
 <body>
     <h1>Mathmanix</h1>
 
+    <div class="background">
+
+    </div>
+
     <!-- Container principal do jogo -->
     <div class="container">
         <!-- HUD de informações -->
         <div class="hud">
             <div class="info">
-                <div id="livesContainer">
-                    <div class="life"></div>
-                    <div class="life"></div>
-                    <div class="life"></div>
-                </div>
-                <p>Pontuação: <span id="score">0</span></p>
-                <p>Tempo: <span id="timer">60</span> segundos</p>
+                <p><strong>Pontuação:</strong> <span id="score"><strong>0</strong></span></p>
             </div>
         </div>
 
@@ -29,7 +27,6 @@
 
         <!-- Área para exibir a equação e resposta -->
         <div id="equationArea" class="equation-box">
-            <p>Equação: <span id="equation"></span></p>
             <input type="number" id="answerInput" placeholder="Resposta">
             <button id="submitAnswer">Atirar</button>
         </div>

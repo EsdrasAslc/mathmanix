@@ -2,6 +2,12 @@
 body {
     text-align: center;
     font-family: Arial, sans-serif;
+    margin: 0; /* Remove margens padrão */
+    padding: 0; /* Remove preenchimentos padrão */
+    background: url('Img11.png') no-repeat center center fixed; /* Caminho para a imagem de fundo */
+    background-size: cover; /* Faz com que o fundo cubra toda a tela */
+    color: white;
+    b
 }
 
 /* Estilos do canvas */
@@ -22,20 +28,6 @@ canvas {
     margin-top: 20px; /* Espaço acima das informações */
 }
 
-/* Estilo para o contêiner de vidas */
-#livesContainer {
-    display: flex;
-    gap: 5px;
-}
-
-/* Estilo para vidas */
-#livesContainer div {
-    width: 20px;
-    height: 20px;
-    background-color: black;
-    border: 2px solid #3498db;
-    border-radius: 50%;
-}
 
 /* Área da equação */
 #equationArea {
@@ -75,7 +67,7 @@ button {
     background-color: #3498db;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 50px;
 }
 
 #restartButton {
@@ -96,10 +88,4 @@ button {
 #finalScore {
     font-size: 24px;
     font-weight: bold;
-}
-
-/* Estilo para o tempo */
-#timeDisplay {
-    font-size: 24px; /* Tamanho da fonte para o tempo */
-    color: #3498db; /* Cor do texto do tempo */
 }
