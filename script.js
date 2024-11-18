@@ -48,6 +48,7 @@ function startGame() {
     lives = 3;
     isGameOver = false;
     isBossActive = false;
+    currentStage = 1;
     gameOverElement.style.display = 'none';
     answerInput.value = '';
     generateAliens();
@@ -55,134 +56,133 @@ function startGame() {
 }
 
 function generateAliens() {
-    for (let i = 0; i < 2; i++) {
-        const a = Math.floor(Math.random() * 10);
-        const b = Math.floor(Math.random() * 10);
-        const equation = `${a} + ${b}`;
-        const result = a + b;
-
-        aliens.push({
-            x: Math.random() * (canvas.width - 50),
-            y: 0,
-            width: 80, // Largura do sprite
-            height: 60, // Altura do sprite
-            equation: equation,
-            result: result,
-            speed: 0.03 + Math.random() * 1,
-            image: alienImage // Adiciona a imagem do alien
-        });
-    }
-}
-function generateAliensstage2() {
-    for (let i = 0; i < 2; i++) {
-        const a = Math.floor(Math.random() * 10);
-        const b = Math.floor(Math.random() * 10);
-        const equation = `${a} - ${b}`;
-        const result = a - b;
-
-        aliens.push({
-            x: Math.random() * (canvas.width - 50),
-            y: 0,
-            width: 80, // Largura do sprite
-            height: 60, // Altura do sprite
-            equation: equation,
-            result: result,
-            speed: 0.5 + Math.random() * 1,
-            image: alienstage2 // Adiciona a imagem do alien
-        });
-    }
-}
-function generateAliensstage3() {
-    for (let i = 0; i < 2; i++) {
-        const a = Math.floor(Math.random() * 10);
-        const b = Math.floor(Math.random() * 10);
-        let pot
-        if (b < 5) {
-            pot = 2;
-        } else {
-            pot = 3
+    if (currentStage == 1){
+        for (let i = 0; i < 2; i++) {
+            const a = Math.floor(Math.random() * 10);
+            const b = Math.floor(Math.random() * 10);
+            const equation = `${a} + ${b}`;
+            const result = a + b;
+    
+            aliens.push({
+                x: Math.random() * (canvas.width - 50),
+                y: 0,
+                width: 80, // Largura do sprite
+                height: 60, // Altura do sprite
+                equation: equation,
+                result: result,
+                speed: 0.03 + Math.random() * 1,
+                image: alienImage // Adiciona a imagem do alien
+            });
         }
-        const equation = `${a} ^ ${pot}`;
-        const result = a ** pot;
-
-        aliens.push({
-            x: Math.random() * (canvas.width - 50),
-            y: 0,
-            width: 80, // Largura do sprite
-            height: 60, // Altura do sprite
-            equation: equation,
-            result: result,
-            speed: 0.1 + Math.random() * 1,
-            image:alienstage3 // Adiciona a imagem do alien
-        });
-    }
-}
-function spawnBoss() {
-    const equacoes = [
-        {
-            conta: '-50+20*3-10',
-            display: '-50 + 20 * 3 - 10'
-        },
-        {
-            conta: '80-25**2+5',
-            display: '80 - 25² + 5'
-        },
-        {
-            conta: '(-15)**2-7',
-            display: '(-15)² - 7'
-        },
-        {
-            conta: '-40*8+5**2',
-            display: '-40 * 8 + 5²'
-        },
-        {
-            conta: '50-12**2+(-9)',
-            display: '50 - 12² + (-9)'
-        },
-        {
-            conta: '-60+18*(-4)-6',
-            display: '-60 + 18 * (-4) - 6'
-        },
-        {
-            conta: '90+(-22)**2-15',
-            display: '90 +(-22)² - 15'
-        },
-        {
-            conta: '-70*9+6**2',
-            display: '-70 * 9 + 6²'
-        },
-        {
-            conta: '35-12**2+(-8)',
-            display: '35 - 12² + (-8)'
-        },
-        {
-            conta: '-25+10*(-5)+3**2',
-            display: '-25 + 10 * (-5) + 3²'
-        },
-        {
-            conta: '-45+(6**2)*(-3)-10',
-            display: '-45 + 6² * (-3) - 10'
+    } else if (currentStage == 2) {
+        for (let i = 0; i < 2; i++) {
+            const a = Math.floor(Math.random() * 10);
+            const b = Math.floor(Math.random() * 10);
+            const equation = `${a} - ${b}`;
+            const result = a - b;
+    
+            aliens.push({
+                x: Math.random() * (canvas.width - 50),
+                y: 0,
+                width: 80, // Largura do sprite
+                height: 60, // Altura do sprite
+                equation: equation,
+                result: result,
+                speed: 0.5 + Math.random() * 1,
+                image: alienstage2 // Adiciona a imagem do alien
+            });
         }
-    ]
-
-    const numeroAleatorio = (Math.random() * 10).toFixed()
-
-
-    aliens = []; // Limpa outros aliens
-    isBossActive = true;
-    console.log(equacoes[numeroAleatorio].display)
-    console.log(eval(equacoes[numeroAleatorio].conta))
-    aliens.push({
-        x: canvas.width / 2 - 80,
-        y: 0,
-        width: 360,
-        height: 320,
-        equation: equacoes[numeroAleatorio].display, // Equação mais difícil
-        result: eval(equacoes[numeroAleatorio].conta),
-        speed: 0.15,
-        image: bossimage,
-        isBoss: true,
-    });
+    } else if (currentStage == 3) {
+        for (let i = 0; i < 2; i++) {
+            const a = Math.floor(Math.random() * 10);
+            const b = Math.floor(Math.random() * 10);
+            let pot
+            if (b < 5) {
+                pot = 2;
+            } else {
+                pot = 3
+            }
+            const equation = `${a} ^ ${pot}`;
+            const result = a ** pot;
+    
+            aliens.push({
+                x: Math.random() * (canvas.width - 50),
+                y: 0,
+                width: 80, // Largura do sprite
+                height: 60, // Altura do sprite
+                equation: equation,
+                result: result,
+                speed: 0.1 + Math.random() * 1,
+                image:alienstage3 // Adiciona a imagem do alien
+            });
+        }
+    } else if (currentStage == 4) {
+        const equacoes = [
+            {
+                conta: '-50+20*3-10',
+                display: '-50 + 20 * 3 - 10'
+            },
+            {
+                conta: '80-25**2+5',
+                display: '80 - 25² + 5'
+            },
+            {
+                conta: '(-15)**2-7',
+                display: '(-15)² - 7'
+            },
+            {
+                conta: '-40*8+5**2',
+                display: '-40 * 8 + 5²'
+            },
+            {
+                conta: '50-12**2+(-9)',
+                display: '50 - 12² + (-9)'
+            },
+            {
+                conta: '-60+18*(-4)-6',
+                display: '-60 + 18 * (-4) - 6'
+            },
+            {
+                conta: '90+(-22)**2-15',
+                display: '90 +(-22)² - 15'
+            },
+            {
+                conta: '-70*9+6**2',
+                display: '-70 * 9 + 6²'
+            },
+            {
+                conta: '35-12**2+(-8)',
+                display: '35 - 12² + (-8)'
+            },
+            {
+                conta: '-25+10*(-5)+3**2',
+                display: '-25 + 10 * (-5) + 3²'
+            },
+            {
+                conta: '-45+(6**2)*(-3)-10',
+                display: '-45 + 6² * (-3) - 10'
+            }
+        ]
+    
+        const numeroAleatorio = (Math.random() * 10).toFixed()
+    
+        isBossActive = true;
+        console.log(equacoes[numeroAleatorio].display)
+        console.log(eval(equacoes[numeroAleatorio].conta))
+        aliens.push({
+            x: canvas.width / 2 - 80,
+            y: 0,
+            width: 360,
+            height: 320,
+            equation: equacoes[numeroAleatorio].display, // Equação mais difícil
+            result: eval(equacoes[numeroAleatorio].conta),
+            speed: 0.15,
+            image: bossimage,
+            isBoss: true,
+        });
+    } else {
+        possBoss();
+    }
 }
 
 function drawAliens() {
@@ -259,16 +259,14 @@ function updateLasers() {
             aliens.splice(aliens.indexOf(targetAlien), 1);
             lasers.splice(laserIndex, 1);
             score += 10;
+            if (score == 200 || score == 400 || score == 800 || score == 810){
+                aliens = [];
+                currentStage +=1;   
+            };
             scoreElement.textContent = score;
 
             // Gerar novo alien dependendo do estágio
-            if (currentStage === 1) {
-                generateAliens();  // Gera aliens da fase 1
-            } else if (currentStage === 2) {
-                generateAliensstage2();  // Gera aliens da fase 2
-            } else if (currentStage === 3) {
-                generateAliensstage3();  // Gera aliens da fase 3
-            }
+            generateAliens()
         }
 
         // Remover laser se ele sair da tela
@@ -278,103 +276,6 @@ function updateLasers() {
     });
 }
 
-function updateLasersstage2() {
-    lasers.forEach((laser, laserIndex) => {
-        const targetAlien = laser.target;
-        const dx = targetAlien.x + targetAlien.width / 2 - laser.x;
-        const dy = targetAlien.y + targetAlien.height / 2 - laser.y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
-        const speed = 100;
-
-        laser.x += (dx / distance) * speed;
-        laser.y += (dy / distance) * speed;
-
-        // Verificar colisão de retângulo entre laser e alien
-        if (
-            laser.x < targetAlien.x + targetAlien.width &&
-            laser.x + laser.width > targetAlien.x &&
-            laser.y < targetAlien.y + targetAlien.height &&
-            laser.y + laser.height > targetAlien.y
-        ) {
-            aliens.splice(aliens.indexOf(targetAlien), 1);
-            lasers.splice(laserIndex, 1);
-            score += 20;
-            scoreElement.textContent = score;
-
-            // Gerar novo alien da fase 2
-            generateAliensstage2();  // Gera aliens da fase 2
-        }
-
-        if (laser.y < 0) {
-            lasers.splice(laserIndex, 1);
-        }
-    });
-}
-
-function updateLasersstage3() {
-    lasers.forEach((laser, laserIndex) => {
-        const targetAlien = laser.target;
-        const dx = targetAlien.x + targetAlien.width / 2 - laser.x;
-        const dy = targetAlien.y + targetAlien.height / 2 - laser.y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
-        const speed = 100;
-
-        laser.x += (dx / distance) * speed;
-        laser.y += (dy / distance) * speed;
-
-        if (
-            laser.x < targetAlien.x + targetAlien.width &&
-            laser.x + laser.width > targetAlien.x &&
-            laser.y < targetAlien.y + targetAlien.height &&
-            laser.y + laser.height > targetAlien.y
-        ) {
-            aliens.splice(aliens.indexOf(targetAlien), 1);
-            lasers.splice(laserIndex, 1);
-            score += 10;
-            scoreElement.textContent = score;
-
-            // Gerar novo alien da fase 3
-            generateAliensstage3();  // Gera aliens da fase 3
-        }
-
-        if (laser.y < 0) {
-            lasers.splice(laserIndex, 1);
-        }
-    });
-}
-function updateLasersboss() {
-    lasers.forEach((laser, laserIndex) => {
-        // Calcular a direção do laser em relação ao alien
-        const targetboss = laser.target;
-        const dx = targetboss.x + targetboss.width / 2 - laser.x;
-        const dy = targetboss.y + targetboss.height / 2 - laser.y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
-        const speed = 100; // Aumentar a velocidade do laser
-
-        // Movimento do laser em direção ao alien
-        laser.x += (dx / distance) * speed;
-        laser.y += (dy / distance) * speed;
-
-        // Verificar colisão de retângulo entre laser e alien
-        if (
-            laser.x < targetboss.x + targetboss.width &&
-            laser.x + laser.width > targetboss.x &&
-            laser.y < targetboss.y + targetboss.height &&
-            laser.y + laser.height > targetboss.y
-        ) {
-            // Remover alien e laser
-            boss.splice(boss.indexOf(targetboss), 1);
-            lasers.splice(laserIndex, 1);
-            score += 10;
-            scoreElement.textContent = score;
-            generateAliens(); // Gerar novo alien
-        }
-// Remover laser se ele sair da tela
-        if (laser.y < 0) {
-            lasers.splice(laserIndex, 1);
-        }
-    });
-}
 function updateLivesDisplay() {
     livesElement.innerHTML = ''; // Limpa o display de vidas
     for (let i = 0; i < 3; i++) {
@@ -406,59 +307,10 @@ function updateGame() {
         }
     });
 
-    if (currentStage === 2) {
-        updatestage2();
-    } else if (currentStage === 3) {
-        updatestage3();
-    } else {
-        checkStage();
-    }
-
     requestAnimationFrame(updateGame);
 }
 
-function updatestage2() {
-    if (currentStage !== 2) return;
-
-    drawAliens();
-    drawLasers();
-    updateLasersstage2();
-
-    
-
-    if (!isBossActive) checkStage();
-    requestAnimationFrame(updatestage2);
-}
-
-function updatestage3() {
-    if (currentStage !== 3) return;
-
-    drawAliens();
-    drawLasers();
-    updateLasersstage3(); // Corrigir a chamada da função aqui
-
-   
-    if (!isBossActive) checkStage();
-    requestAnimationFrame(updatestage3);
-}
-
-// Função de verificação do estágio
-function checkStage() {
-    // Verifica pontuação e estágio atual para evitar múltiplas chamadas
-    if (score >= 500 && currentStage === 2) {
-        aliens = [];
-        currentStage = 3;
-        generateAliensstage3();
-    } else if (score >= 200 && currentStage === 1) {
-        aliens = [];
-        currentStage = 2;
-        generateAliensstage2();
-    } else if (score >= 800 && !isBossActive && currentStage === 3) {
-        spawnBoss();
-    }
-}
-
-function gerarNewAlien() {
+function possBoss() {
     const num = Math.random() * 10;
 
     if (aliens.length > 5) {
