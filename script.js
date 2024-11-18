@@ -107,7 +107,7 @@ function generateAliensstage3() {
             pot = 3
         }
         const equation = `${a} ^ ${pot}`;
-        const result = a ^ pot;
+        const result = a ** pot;
 
         aliens.push({
             x: Math.random() * (canvas.width - 50),
