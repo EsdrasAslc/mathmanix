@@ -10,19 +10,19 @@ const rankingList = document.getElementById('rankingList');
 const restartButton = document.getElementById('restartButton');
 
 let naveImage = new Image();
-naveImage.src = 'spritenave(1).png'; // Caminho para a imagem do sprite da nave
+naveImage.src = 'img/spritenave(1).png'; // Caminho para a imagem do sprite da nave
 
 let alienImage = new Image();
-alienImage.src = 'alien.png';
+alienImage.src = 'img/alien.png';
 
 let bossimage = new Image();
-bossimage.src = 'alienBoss.png'
+bossimage.src = 'img/alienBoss.png'
 
 let alienstage2 = new Image();
-alienstage2.src = 'alienstage2.png'
+alienstage2.src = 'img/alienstage2.png'
 
 let alienstage3 = new Image();
-alienstage3.src = 'alienstage3.png'
+alienstage3.src = 'img/alienstage3.png'
 
 
 let nave = {
@@ -111,7 +111,7 @@ function generateAliens() {
                 height: 60, // Altura do sprite
                 equation: equation,
                 result: result,
-                speed: 0.1 + Math.random() * 1,
+                speed: 0.05 + Math.random() * 1,
                 image:alienstage3 // Adiciona a imagem do alien
             });
         }
@@ -175,7 +175,7 @@ function generateAliens() {
             height: 320,
             equation: equacoes[numeroAleatorio].display, // Equação mais difícil
             result: eval(equacoes[numeroAleatorio].conta),
-            speed: 0.15,
+            speed: 0.05,
             image: bossimage,
             isBoss: true,
         });
@@ -258,7 +258,7 @@ function updateLasers() {
             aliens.splice(aliens.indexOf(targetAlien), 1);
             lasers.splice(laserIndex, 1);
             score += 10;
-            if (score == 200 || score == 400 || score == 800 || score == 810){
+            if (score == 200 || score == 400 || score == 800 || score == 810    ){
                 aliens = [];
                 currentStage +=1;   
             };
@@ -300,29 +300,159 @@ function possBoss() {
     if (aliens.length > 5) {
         return 0
     }
-    console.log("OK")
-    if (score < 200) {
-        generateAliens();
-    } else if (score >= 200 && score < 500) {
-        if (num < 5) {
-            generateAliensstage2();
-        } else {
-            generateAliens();
-        }
-    } else if (score >= 500 && score < 800) {
-        if (num < 5) {
-            if (num < 2.5) {
-                generateAliensstage2();
-            } else {
-                generateAliens();
+    if (num < 5) {
+        if (num < 2.5) {
+            for (let i = 0; i < 2; i++) {
+                const a = Math.floor(Math.random() * 10);
+                const b = Math.floor(Math.random() * 10);
+                const equation = `${a} + ${b}`;
+                const result = a + b;
+        
+                aliens.push({
+                    x: Math.random() * (canvas.width - 50),
+                    y: 0,
+                    width: 80, // Largura do sprite
+                    height: 60, // Altura do sprite
+                    equation: equation,
+                    result: result,
+                    speed: 0.03 + Math.random() * 1,
+                    image: alienImage // Adiciona a imagem do alien
+                });
             }
         } else {
-            generateAliensstage3();
+            for (let i = 0; i < 2; i++) {
+                const a = Math.floor(Math.random() * 10);
+                const b = Math.floor(Math.random() * 10);
+                const equation = `${a} - ${b}`;
+                const result = a - b;
+        
+                aliens.push({ 
+                    x: Math.random() * (canvas.width - 50),
+                    y: 0,
+                    width: 80, // Largura do sprite
+                    height: 60, // Altura do sprite
+                    equation: equation,
+                    result: result,
+                    speed: 0.202 + Math.random() * 1,
+                    image: alienstage2 // Adiciona a imagem do alien
+                });
+            }
         }
-    } else if (score === 800) {
-        spawnBoss();
-    }
+    } else {
+        for (let i = 0; i < 2; i++) {
+            const a = Math.floor(Math.random() * 10);
+            const b = Math.floor(Math.random() * 10);
+            let pot
+            if (b < 5) {
+                pot = 2;
+            } else {
+                pot = 3
+            }
+            const equation = `${a} ^ ${pot}`;
+            const result = a ** pot;
     
+            aliens.push({
+                x: Math.random() * (canvas.width - 50),
+                y: 0,
+                width: 80, // Largura do sprite
+                height: 60, // Altura do sprite
+                equation: equation,
+                result: result,
+                speed: 0.1 + Math.random() * 1,
+                image:alienstage3 // Adiciona a imagem do alien
+            });
+        }
+    }
+
+    if (score % 800 == 0) {
+        for (let i = 0; i < 2; i++) {
+            const a = Math.floor(Math.random() * 10);
+            const b = Math.floor(Math.random() * 10);
+            let pot
+            if (b < 5) {
+                pot = 2;
+            } else {
+                pot = 3
+            }
+            const equation = `${a} ^ ${pot}`;
+            const result = a ** pot;
+    
+            aliens.push({
+                x: Math.random() * (canvas.width - 50),
+                y: 0,
+                width: 80, // Largura do sprite
+                height: 60, // Altura do sprite
+                equation: equation,
+                result: result,
+                speed: 0.1 + Math.random() * 1,
+                image:alienstage3 // Adiciona a imagem do alien
+            });
+        }
+    } else if (currentStage == 4) {
+        const equacoes = [
+            {
+                conta: '-50+20*3-10',
+                display: '-50 + 20 * 3 - 10'
+            },
+            {
+                conta: '80-25**2+5',
+                display: '80 - 25² + 5'
+            },
+            {
+                conta: '(-15)**2-7',
+                display: '(-15)² - 7'
+            },
+            {
+                conta: '-40*8+5**2',
+                display: '-40 * 8 + 5²'
+            },
+            {
+                conta: '50-12**2+(-9)',
+                display: '50 - 12² + (-9)'
+            },
+            {
+                conta: '-60+18*(-4)-6',
+                display: '-60 + 18 * (-4) - 6'
+            },
+            {
+                conta: '90+(-22)**2-15',
+                display: '90 +(-22)² - 15'
+            },
+            {
+                conta: '-70*9+6**2',
+                display: '-70 * 9 + 6²'
+            },
+            {
+                conta: '35-12**2+(-8)',
+                display: '35 - 12² + (-8)'
+            },
+            {
+                conta: '-25+10*(-5)+3**2',
+                display: '-25 + 10 * (-5) + 3²'
+            },
+            {
+                conta: '-45+(6**2)*(-3)-10',
+                display: '-45 + 6² * (-3) - 10'
+            }
+        ]
+    
+        const numeroAleatorio = (Math.random() * 10).toFixed()
+    
+        isBossActive = true;
+        console.log(equacoes[numeroAleatorio].display)
+        console.log(eval(equacoes[numeroAleatorio].conta))
+        aliens.push({
+            x: canvas.width / 2 - 80,
+            y: 0,
+            width: 360,
+            height: 320,
+            equation: equacoes[numeroAleatorio].display, // Equação mais difícil
+            result: eval(equacoes[numeroAleatorio].conta),
+            speed: 0.15,
+            image: bossimage,
+            isBoss: true,
+        });
+    }
 }
 
 

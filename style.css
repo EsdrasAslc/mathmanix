@@ -4,7 +4,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 0; /* Remove margens padrão */
     padding: 0; /* Remove preenchimentos padrão */
-    background: url('Img11.png') no-repeat center center fixed; /* Caminho para a imagem de fundo */
+    background: url('img/Img11.png') no-repeat center center fixed; /* Caminho para a imagem de fundo */
     background-size: cover; /* Faz com que o fundo cubra toda a tela */
     color: white;
     b
