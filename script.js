@@ -8,7 +8,6 @@ const gameOverElement = document.getElementById('gameOver');
 const finalScoreElement = document.getElementById('finalScore');
 const rankingList = document.getElementById('rankingList');
 const restartButton = document.getElementById('restartButton');
-const livesElement = document.getElementById('lives');
 let naveImage = new Image();
 naveImage.src = 'spritenave(1).png'; // Caminho para a imagem do sprite da nave
 
@@ -37,7 +36,6 @@ let lasers = [];
 let score = 0;
 let isGameOver = false;
 let rankings = [];
-let lives = 3; // Total de vidas do jogador
 let currentStage = 1;
 let isBossActive = false;
 
@@ -276,21 +274,6 @@ function updateLasers() {
     });
 }
 
-function updateLivesDisplay() {
-    livesElement.innerHTML = ''; // Limpa o display de vidas
-    for (let i = 0; i < 3; i++) {
-        const life = document.createElement('span');
-        life.textContent = '⬤';
-        life.style.color = i < lives ? 'black' : 'white';
-        livesElement.appendChild(life);
-    }
-}
-
-function loseLife() {
-    lives--;
-    updateLivesDisplay();
-    if (lives <= 0) endGame();
-}
 function updateGame() {
     if (isGameOver) return;
 
