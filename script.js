@@ -2,7 +2,6 @@ const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 const equationElement = document.getElementById('equation');
 const scoreElement = document.getElementById('score');
-const timerElement = document.getElementById('timer');
 const answerInput = document.getElementById('answerInput');
 const submitAnswerButton = document.getElementById('submitAnswer');
 const gameOverElement = document.getElementById('gameOver');
@@ -36,7 +35,6 @@ let aliens = [];
 let boss = []
 let lasers = [];
 let score = 0;
-let gameTimer = 60;
 let isGameOver = false;
 let rankings = [];
 let lives = 3; // Total de vidas do jogador
@@ -48,14 +46,12 @@ function startGame() {
     lasers = [];
     score = 0;
     lives = 3;
-    gameTimer = 180;
     isGameOver = false;
     isBossActive = false;
     gameOverElement.style.display = 'none';
     answerInput.value = '';
     generateAliens();
     updateGame();
-    startTimer();
 }
 
 function generateAliens() {
@@ -523,21 +519,6 @@ function checkAnswer() {
 
         answerInput.value = '';
     }
-}
-
-
-function startTimer() {
-    const timerInterval = setInterval(() => {
-        if (isGameOver) {
-            clearInterval(timerInterval);
-            return;
-        }
-        gameTimer--;
-        timerElement.textContent = gameTimer;
-        if (gameTimer <= 0) {
-            endGame();
-        }
-    }, 1000);
 }
 
 function endGame() {
