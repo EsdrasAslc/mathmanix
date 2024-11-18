@@ -122,20 +122,73 @@ function generateAliensstage3() {
     }
 }
 function spawnBoss() {
+    const equacoes = [
+        {
+            conta: '-50+20*3-10',
+            display: '-50 + 20 * 3 - 10'
+        },
+        {
+            conta: '80-25**2+5',
+            display: '80 - 25² + 5'
+        },
+        {
+            conta: '(-15)**2-7',
+            display: '(-15)² - 7'
+        },
+        {
+            conta: '-40*8+5**2',
+            display: '-40 * 8 + 5²'
+        },
+        {
+            conta: '50-12**2+(-9)',
+            display: '50 - 12² + (-9)'
+        },
+        {
+            conta: '-60+18*(-4)-6',
+            display: '-60 + 18 * (-4) - 6'
+        },
+        {
+            conta: '90+(-22)**2-15',
+            display: '90 +(-22)² - 15'
+        },
+        {
+            conta: '-70*9+6**2',
+            display: '-70 * 9 + 6²'
+        },
+        {
+            conta: '35-12**2+(-8)',
+            display: '35 - 12² + (-8)'
+        },
+        {
+            conta: '-25+10*(-5)+3**2',
+            display: '-25 + 10 * (-5) + 3²'
+        },
+        {
+            conta: '-45+(6**2)*(-3)-10',
+            display: '-45 + 6² * (-3) - 10'
+        }
+    ]
+
+    const numeroAleatorio = (Math.random() * 10).toFixed()
+
+
     aliens = []; // Limpa outros aliens
     isBossActive = true;
+    console.log(equacoes[numeroAleatorio].display)
+    console.log(eval(equacoes[numeroAleatorio].conta))
     aliens.push({
         x: canvas.width / 2 - 80,
         y: 0,
         width: 360,
         height: 320,
-        equation: '80-25x2+5', // Equação mais difícil
-        result: 35,
-        speed: 0.2,
+        equation: equacoes[numeroAleatorio].display, // Equação mais difícil
+        result: eval(equacoes[numeroAleatorio].conta),
+        speed: 0.15,
         image: bossimage,
         isBoss: true,
     });
 }
+
 function drawAliens() {
     // Limpa o canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
