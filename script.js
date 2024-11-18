@@ -22,7 +22,7 @@ let alienstage2 = new Image();
 alienstage2.src = 'alienstage2.png'
 
 let alienstage3 = new Image();
-alienstage3.src = 'alienstage3.jpg'
+alienstage3.src = 'alienstage3.png'
 
 
 let nave = {
