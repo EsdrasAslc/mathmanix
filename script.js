@@ -88,7 +88,7 @@ function generateAliens() {
                 height: 60, // Altura do sprite
                 equation: equation,
                 result: result,
-                speed: 0.5 + Math.random() * 1,
+                speed: 0.202 + Math.random() * 1,
                 image: alienstage2 // Adiciona a imagem do alien
             });
         }
