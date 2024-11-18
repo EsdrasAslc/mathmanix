@@ -8,6 +8,7 @@ const gameOverElement = document.getElementById('gameOver');
 const finalScoreElement = document.getElementById('finalScore');
 const rankingList = document.getElementById('rankingList');
 const restartButton = document.getElementById('restartButton');
+
 let naveImage = new Image();
 naveImage.src = 'spritenave(1).png'; // Caminho para a imagem do sprite da nave
 
@@ -30,6 +31,7 @@ let nave = {
     width: 140, // Largura do sprite
     height: 120, // Altura do sprite
 };
+
 let aliens = [];
 let boss = []
 let lasers = [];
@@ -43,7 +45,6 @@ function startGame() {
     aliens = [];
     lasers = [];
     score = 0;
-    lives = 3;
     isGameOver = false;
     isBossActive = false;
     currentStage = 1;
@@ -79,7 +80,7 @@ function generateAliens() {
             const equation = `${a} - ${b}`;
             const result = a - b;
     
-            aliens.push({
+            aliens.push({ 
                 x: Math.random() * (canvas.width - 50),
                 y: 0,
                 width: 80, // Largura do sprite
