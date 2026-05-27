@@ -1,6 +1,6 @@
 # 🚀 Mathmanix: Gamificando a Matemática
 
-[![Project Status](https://img.shields.io/badge/Status-Em%20Desenvolvimento-orange)](#)
+[![Status](https://img.shields.io/badge/Status-Conclu%C3%ADdo-green?style=for-the-badge&logo=github)]()
 
 Um jogo interativo e lúdico desenvolvido como projeto prático para a disciplina de **Estrutura de Dados**, ministrada pelo **Professor Jean Trabuco**. O objetivo principal é transformar o aprendizado de equações matemáticas numa experiência divertida, estimulante e visual para crianças.
 
@@ -40,21 +40,4 @@ O projeto vai além da interface gráfica; ele serve como laboratório para a ap
 
 ## 💻 Como Executar o Projeto
 
-### Pré-requisitos
-Antes de começar, vais precisar de ter instalado na tua máquina as seguintes ferramentas:
-* [Listar aqui o que for necessário, ex: Git, Node.js, Python, C++, Raylib, etc.]
-
-### Passo a Passo
-
-```bash
-# 1. Clona este repositório
-$ git clone [https://github.com/EsdrasAslc/mathmanix.git](https://github.com/EsdrasAslc/mathmanix.git)
-
-# 2. Acede à pasta do projeto
-$ cd mathmanix
-
-# 3. Instala as dependências (se houver)
-$ [comando de instalação, ex: npm install ou pip install -r requirements.txt]
-
-# 4. Executa o jogo
-$ [comando para rodar, ex: npm start, ou compile o arquivo principal]
+Execute o index.html
