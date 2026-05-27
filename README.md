@@ -2,7 +2,7 @@
 
 [![Status](https://img.shields.io/badge/Status-Conclu%C3%ADdo-green?style=for-the-badge&logo=github)]()
 
-Um jogo interativo e lúdico desenvolvido como projeto prático para a disciplina de **Estrutura de Dados**, ministrada pelo **Professor Jean Trabuco**. O objetivo principal é transformar o aprendizado de equações matemáticas numa experiência divertida, estimulante e visual para crianças.
+Um jogo interativo e lúdico desenvolvido como projeto prático para a disciplina de **Estrutura de Dados**, ministrada pelo **Professor Gean Trabuco**. O objetivo principal é transformar o aprendizado de equações matemáticas numa experiência divertida, estimulante e visual para crianças.
 
 ---
 
