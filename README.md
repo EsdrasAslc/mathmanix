@@ -1,4 +1,4 @@
-# 🚀 MathSpace: Gamificando a Matemática
+# 🚀 Mathmanix: Gamificando a Matemática
 
 [![Project Status](https://img.shields.io/badge/Status-Em%20Desenvolvimento-orange)](#)
 
